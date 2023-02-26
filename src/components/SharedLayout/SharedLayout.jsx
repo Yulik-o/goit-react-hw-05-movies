@@ -1,10 +1,10 @@
 import { StyledLink } from 'components/App.styled';
 import { Outlet } from 'react-router-dom';
-import { Container, Header } from './SharedLayout.styled';
+import { Header, StyledDiv } from './SharedLayout.styled';
 
 export const SharedLayout = () => {
   return (
-    <Container>
+    <StyledDiv>
       <Header>
         <h2>FilmZone</h2>
         <nav>
@@ -13,8 +13,9 @@ export const SharedLayout = () => {
           <StyledLink to="/movie-details">MovieDetails</StyledLink>
           <StyledLink to="/movies/:movieId">Movie Details</StyledLink>
         </nav>
+      
       </Header>
       <Outlet/>
-    </Container>
+    </StyledDiv>
   );
 };
