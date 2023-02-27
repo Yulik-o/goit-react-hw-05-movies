@@ -1,8 +1,15 @@
 import { StyledLink } from "components/App.styled";
+//import { useState } from "react";
 import { Outlet, useParams } from "react-router-dom";
 
-export const MovieDetails = () =>{
+export const MovieDetailsPage = () =>{
     const { movieId } = useParams();
+    // const [cast, setCast] = useState(null)
+    // const [isLoading, setIsLoading] = useState(false)
+    // const [reviews, setReviews] = useState(null)
+    // const [error, setError] = useState(null)
+    
+
     return (
         <div>
         <div>{movieId}</div>
@@ -10,6 +17,7 @@ export const MovieDetails = () =>{
         <ul>
             <li>
                 <StyledLink to="cast">Cast</StyledLink>
+                {/* {Boolean(cast) && <div></div>} */}
                 
             </li>
             <li><StyledLink to="reviews">Reviews</StyledLink></li>
