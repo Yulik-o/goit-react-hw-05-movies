@@ -27,7 +27,7 @@ const HomePage =() =>{
         {movies && 
         movies.map(movie => {
             return (
-                <li key={movie.id}></li>
+                <li key={movie.id}>{movie.title}</li>
                     )
                    
         })}

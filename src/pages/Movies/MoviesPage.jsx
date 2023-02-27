@@ -1,6 +1,7 @@
 import { StyledButton, StyledForm } from "./MoviesPageStyled"
 
 export const MoviesPage = () =>{
+  
     return (
         <StyledForm>
       <input
