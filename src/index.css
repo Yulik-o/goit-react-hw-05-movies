@@ -9,12 +9,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   color: #4b6584;
   
+  
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
     
+}
+div {
+  padding: 20px;
+  /* text-align: center; */
 }
 
 a {

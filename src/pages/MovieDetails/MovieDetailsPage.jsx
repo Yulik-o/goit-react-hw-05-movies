@@ -1,28 +1,65 @@
-import { StyledLink } from "components/App.styled";
-//import { useState } from "react";
-import { Outlet, useParams } from "react-router-dom";
+import { StyledLink } from 'components/App.styled';
+import { GoBackButton } from 'components/GoBackButton/GoBackButton';
+import { useEffect, useState } from 'react';
 
-export const MovieDetailsPage = () =>{
-    const { movieId } = useParams();
-    // const [cast, setCast] = useState(null)
-    // const [isLoading, setIsLoading] = useState(false)
-    // const [reviews, setReviews] = useState(null)
-    // const [error, setError] = useState(null)
-    
+import { Outlet, useLocation, useParams } from 'react-router-dom';
+import { requestMovieDetails } from 'services/api';
 
-    return (
+export default function MovieDetailsPage() {
+  const { movieId } = useParams();
+  const location = useLocation();
+  const [movieData, setMovieData] = useState({});
+
+  useEffect(() => {
+    async function getMovieItem() {
+      try {
+        const response = await requestMovieDetails(movieId);
+        setMovieData({ ...response });
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    getMovieItem();
+  }, [movieId]);
+
+  return (
+    <>
+      <div>
+        <GoBackButton />
         <div>
-        <div>{movieId}</div>
-        <h3>Additional information</h3>
-        <ul>
-            <li>
-                <StyledLink to="cast">Cast</StyledLink>
-                {/* {Boolean(cast) && <div></div>} */}
-                
-            </li>
-            <li><StyledLink to="reviews">Reviews</StyledLink></li>
-        </ul>
-        <Outlet />
+          <img
+            src={`https://image.tmdb.org/t/p/w500/${movieData.poster_path} `}
+            alt="movieData.title"
+          />
         </div>
-    )
+        <h2>
+          {movieData.title}
+          <span>({movieData.release_date})</span>
+        </h2>
+        <p>User score: {movieData.vote_average}</p>
+        <h3>Overview</h3>
+        <p>{movieData.overview}</p>
+        <h3>Genres</h3>
+        <p>
+          {movieData.genres &&
+            movieData.genres.map(el => `${el.name}`).join(', ')}
+        </p>
+      </div>
+
+      <h3>Additional information</h3>
+      <ul>
+        <li>
+          <StyledLink state={location.state} to="cast">
+            Cast
+          </StyledLink>
+        </li>
+        <li>
+          <StyledLink state={location.state} to="reviews">
+            Reviews
+          </StyledLink>
+        </li>
+      </ul>
+      <Outlet />
+    </>
+  );
 }
